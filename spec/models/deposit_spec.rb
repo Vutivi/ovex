@@ -14,9 +14,21 @@ RSpec.describe Deposit, type: :model do
   describe 'updates the member account correctly' do
     it 'increments the account balance by deposit amount' do
       account_balance = account.balance
-      deposit = create(:deposit, member: member)
+      deposit         = create(:deposit, member: member)
       
       expect(account.reload.balance).to eq(account_balance + (deposit.amount - deposit.fee))
+    end
+
+    it 'logs the account event' do
+      account_balance = account.balance
+      deposit         = create(:deposit, member: member)
+      account_history = account.account_histories&.first
+
+      expect(account_history).to be_valid
+      expect(account_history.event).to eq('deposit')
+      expect(account_history.change_amount).to eq(deposit.amount - deposit.fee)
+      expect(account_history.balance).to eq(account_balance + (deposit.amount - deposit.fee))
+      expect(account_history.locked).to eq(account.locked)
     end
   end
 end

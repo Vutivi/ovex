@@ -15,6 +15,11 @@ class Deposit < ApplicationRecord
   end
 
   def update_member_account_balance
-    member_account.update(balance: member_account.balance + amount_to_credit)
+    member_account.update!(balance: member_account.balance + amount_to_credit)
+    AccountHistory.create!(balance: member_account.balance,
+                           locked: member_account.locked,
+                           event: 1,
+                           change_amount: amount_to_credit,
+                           loggable: member_account)
   end
 end

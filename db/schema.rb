@@ -10,13 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_14_214646) do
+ActiveRecord::Schema.define(version: 2022_03_15_095741) do
+
+  create_table "account_histories", force: :cascade do |t|
+    t.float "balance", null: false
+    t.float "locked", null: false
+    t.integer "event", default: 0
+    t.float "change_amount", null: false
+    t.string "loggable_type"
+    t.integer "loggable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["loggable_type", "loggable_id"], name: "index_account_histories_on_loggable"
+  end
 
   create_table "accounts", force: :cascade do |t|
     t.integer "member_id", null: false
     t.integer "currency_id", null: false
-    t.float "balance", default: 0.0
-    t.float "locked", default: 0.0
+    t.float "balance", default: 0.0, null: false
+    t.float "locked", default: 0.0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["currency_id"], name: "index_accounts_on_currency_id"
@@ -24,8 +36,8 @@ ActiveRecord::Schema.define(version: 2022_03_14_214646) do
   end
 
   create_table "currencies", force: :cascade do |t|
-    t.string "name"
-    t.string "code"
+    t.string "name", null: false
+    t.string "code", null: false
     t.string "symbol"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -34,9 +46,9 @@ ActiveRecord::Schema.define(version: 2022_03_14_214646) do
   create_table "deposits", force: :cascade do |t|
     t.integer "member_id", null: false
     t.integer "currency_id", null: false
-    t.float "amount"
-    t.float "fee"
-    t.string "aasm_state"
+    t.float "amount", null: false
+    t.float "fee", null: false
+    t.string "aasm_state", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["currency_id"], name: "index_deposits_on_currency_id"

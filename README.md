@@ -1,24 +1,14 @@
-# README
+# Account Manager
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an accounts management app to demonstrate unit testing with Rspec
 
-Things you may want to cover:
+## Setup
+* `bundle`
+* `rake db:setup`
 
-* Ruby version
+## Run tests
+`rspec`
+or formatted
+`rspec --format doc`
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+A file will be generated on path_to_project/coverage with the tests coverage

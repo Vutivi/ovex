@@ -5,6 +5,5 @@ RSpec.describe Member, type: :model do
 
   it "has a valid factory" do
     expect(build(:member)).to be_valid
-    expect(member.id).to eq(1)
   end
 end
